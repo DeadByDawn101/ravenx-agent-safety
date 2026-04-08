@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ravenx-agent-safety"
+version = "0.1.0"
+description = "Practical agent safety mitigations extracted from the Claude Mythos Preview system card"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+  { name = "Camila Prime / RavenX AI" }
+]
+dependencies = []
+
+[project.scripts]
+ravenx-agent-safety = "src.cli:main"
+
+[tool.setuptools]
+packages = ["src"]

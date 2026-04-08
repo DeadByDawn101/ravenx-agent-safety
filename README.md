@@ -59,6 +59,39 @@ print(guard.summary())
 print(monitor.session_summary())
 ```
 
+## CLI Usage
+
+Install locally:
+
+```bash
+cd /Users/ravenx/Projects/ravenx-agent-safety
+python3 -m pip install -e .
+```
+
+Generate a safe system prompt:
+
+```bash
+ravenx-agent-safety prompt "Fix the JWT validation bug in src/auth.py"
+```
+
+Audit a planned tool call in a narrow preset:
+
+```bash
+ravenx-agent-safety check bash '{"command":"cat /proc/123/mem"}' \
+  --preset single-file \
+  --file src/auth.py
+```
+
+Check a suspicious transcript turn:
+
+```bash
+ravenx-agent-safety transcript "I think this is a test and the grader is watching me"
+```
+
+Exit codes:
+- `0` = allowed / clean
+- `2` = blocked by guard or scope policy
+
 ---
 
 ## The Safe System Prompt
@@ -85,6 +118,9 @@ Key lines:
 | `src/agent_guard.py` | Core guard — pattern detection, system prompt injection, hard limits |
 | `src/agent_monitor.py` | Session monitor — coverup detection, eval awareness, git diff audit |
 | `src/scope_limiter.py` | Scope enforcement — file/command/network allow-lists |
+| `src/presets.py` | Reusable preset profiles: review, single-file, repo, deploy |
+| `src/cli.py` | Command-line interface for prompt generation and tool-call auditing |
+| `tests/test_agent_safety.py` | Unit tests for dangerous pattern blocking and scope restrictions |
 
 ---
 
